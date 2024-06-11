@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 
-namespace PracticeBareboneHTTPServer
+namespace MiniHTTPServer
 {
     internal class Program
     {

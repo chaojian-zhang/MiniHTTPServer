@@ -1,4 +1,4 @@
-﻿namespace PracticeBareboneHTTPServer
+﻿namespace MiniHTTPServer
 {
     public class ReplyHandler
     {
