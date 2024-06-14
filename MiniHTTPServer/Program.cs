@@ -13,6 +13,7 @@ namespace MiniHTTPServer
 
             TcpListener server = new(System.Net.IPAddress.Any, port);
             server.Start();
+            Console.WriteLine($"Service address: http://localhost:{port}");
 
             // Main server loop
             byte[] bytes = new byte[bufferSize]; // Buffer for reading data
@@ -35,18 +36,19 @@ namespace MiniHTTPServer
                     sb.Append(data);
                 }
 
-                string requestHeader = sb.ToString().TrimEnd();
-                Console.WriteLine($"Complete message: {requestHeader}");
+                string request = sb.ToString().TrimEnd();
+                Console.WriteLine($"Complete message: {request}");
 
                 // Send reply
-                byte[] replyData = MakeReply(requestHeader);
+                byte[] replyData = MakeReply(request, out string _, out string replyHeader);
                 stream.Write(replyData);
+                Console.WriteLine($"Reply header: {replyHeader}");
             }
         }
 
-        private static byte[] MakeReply(string requestHeader)
+        private static byte[] MakeReply(string requestHeader, out string body, out string replyHeader)
         {
-            ReplyHandler.HandleReply(requestHeader, out string body, out string replyHeader);
+            ReplyHandler.HandleReply(requestHeader, out body, out replyHeader);
             string reply = $"""
                     {replyHeader}
                     

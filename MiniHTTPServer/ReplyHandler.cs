@@ -24,8 +24,14 @@
                     """;
             replyHeader = $"""
                     HTTP/1.1 200 OK
+                    Date: {DateTime.Now.ToUniversalTime().ToString("r")}
+                    Connection: close
+                    Vary: Origin
+                    Cache-Control: public, max-age=0
+                    Last-Modified: {DateTime.Now.ToUniversalTime():r}
+                    ETag: W/"{Guid.NewGuid().ToString()[..15]}"
+                    Content-Type: text/html; charset=UTF-8
                     Content-Length: {body.Length}
-                    Content-Type: text/plain; charset=utf-8
                     """;
         }
     }
