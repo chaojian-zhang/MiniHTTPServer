@@ -6,7 +6,7 @@ As it turns out, getting started is very easy, and wandering to mild distance is
 
 ## TODO
 
-- [ ] Publishing script
+- [x] Add publishing script
 - [ ] Make a YouTube video: How to Write Your Own HTTP Server
 - [ ] Proper browser handleable replies
 - [ ] Static file hosting
