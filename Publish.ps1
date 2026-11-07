@@ -4,7 +4,7 @@ Set-Location $PSScriptRoot
 
 Write-Host "Publish Mini HTTP Server..."
 # Delete current data
-$PublishFolder = "$PSScriptRoot\..\Publish"
+$PublishFolder = "$PSScriptRoot\Publish"
 if (Test-Path -Path $PublishFolder) {
     Remove-Item $PublishFolder -Recurse -Force
 }
@@ -15,7 +15,7 @@ $PublishExecutables = @(
 )
 foreach ($Item in $PublishExecutables)
 {
-    dotnet publish $PSScriptRoot\..\$Item --use-current-runtime --output $PublishFolder
+    dotnet publish $PSScriptRoot\$Item --use-current-runtime --output $PublishFolder
 }
 
 # Validation
