@@ -4,11 +4,23 @@ Based on [PracticeBareboneHTTPServer](https://github.com/Charles-Zhang-CSharp/Pr
 
 As it turns out, getting started is very easy, and wandering to mild distance is not too hard.
 
+## Usage
+
+```
+MiniHTTPServer [port] [folder]
+```
+
+Serves the files in `folder` (default: the current folder) on `port` (default: 9000). A folder's `index.html` is served for its URL. To try it, run `MiniHTTPServer 8080 Example` from the repo root and open http://localhost:8080.
+
+Everything in the folder is public, including hidden files like `.git`, so don't point it at a folder with anything private in it. Files are read into memory in full, so it isn't suited to very large files.
+
+To run the tests: `.\Test.ps1`
+
 ## TODO
 
 - [x] Add publishing script; Done, see [commit](https://github.com/chaojian-zhang/MiniHTTPServer/commit/81485ff5e90e888ab5556c364ce007154d115257).
 - [x] Make sure replies can be understood by browser and rendered as HTML; Done, see [commit](https://github.com/chaojian-zhang/MiniHTTPServer/commit/d6ada1d044fa4e4bb08c1ceb11bc627c7ee6b852).
-- [ ] Static file hosting
+- [x] Static file hosting
 - [ ] Make a YouTube video: How to Write Your Own HTTP Server
 - [ ] HTTPs support
 - [ ] Preliminary (embedded) scripting (e.g. Lua)

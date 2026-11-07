@@ -8,10 +8,13 @@ namespace MiniHTTPServer
         static void Main(string[] args)
         {
             int port = args.Length != 0 ? int.Parse(args.First()) : 9000;
+            // A trailing separator lets StaticFileHandler check that a path is really inside this folder.
+            string rootFolder = Path.GetFullPath((args.Length > 1 ? args[1] : ".") + Path.DirectorySeparatorChar);
 
             TcpListener server = new(System.Net.IPAddress.Any, port);
             server.Start();
             Console.WriteLine($"Service address: http://localhost:{port}");
+            Console.WriteLine($"Serving files from: {rootFolder}");
 
             // Main server loop
             while (true)
@@ -22,11 +25,11 @@ namespace MiniHTTPServer
                 Console.WriteLine("Connected!");
 
                 // Serve each connection on its own task so a slow or idle client (e.g. a browser's speculative preconnect) can't stall the accept loop.
-                _ = Task.Run(() => HandleClient(client));
+                _ = Task.Run(() => HandleClient(client, rootFolder));
             }
         }
 
-        static void HandleClient(TcpClient client)
+        static void HandleClient(TcpClient client, string rootFolder)
         {
             const int bufferSize = 2048;
 
@@ -64,7 +67,7 @@ namespace MiniHTTPServer
                     return; // Client closed without sending anything
 
                 // Send reply
-                byte[] replyData = MakeReply(request, out string _, out string replyHeader);
+                byte[] replyData = ReplyHandler.HandleReply(request, rootFolder, out string replyHeader);
                 stream.Write(replyData);
                 Console.WriteLine($"Reply header: {replyHeader}");
 
@@ -77,13 +80,6 @@ namespace MiniHTTPServer
                 }
                 catch (IOException) { }
             }
-        }
-
-        private static byte[] MakeReply(string requestHeader, out string body, out string replyHeader)
-        {
-            ReplyHandler.HandleReply(requestHeader, out body, out replyHeader);
-            byte[] replyData = Encoding.UTF8.GetBytes(replyHeader + body);
-            return replyData;
         }
     }
 }
