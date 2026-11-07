@@ -17,7 +17,7 @@ As it turns out, getting started is very easy, and wandering to mild distance is
 
 Quick references:
 
-* TcpListener Class: https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.tcplistener?view=net-8.0
+* TcpListener Class: https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.tcplistener?view=net-10.0
 * https://github.com/Charles-Zhang-CSharp/PracticeBareboneHTTPServer
 * https://github.com/chaojian-zhang/StaticWebpagesServer
 
